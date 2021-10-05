@@ -22,7 +22,7 @@ contract Campaign {
     mapping(address => bool) public approvers;
 
     modifier restricted() {
-        require(msg.send == manager);
+        require(msg.sender == manager);
         _;
     }
 
@@ -35,7 +35,7 @@ contract Campaign {
     }
 
     function contribute() public payable {
-        require(msg.value > minimnumContribution);
+        require(msg.value > minimumContribution);
 
         approvers[msg.sender] = true;
     }
@@ -49,9 +49,23 @@ contract Campaign {
             description: description,
             value: value,
             recipient: recipient,
-            complete: false
+            complete: false,
+            approvalCount: 0
         });
 
         requests.push(newRequest);
+    }
+
+    function approveRequest(uint256 index) public {
+        //Declaring a local variable:
+        Request storage request = requests[index];
+        //Checking if this person backed the project:
+        require(approvers[msg.sender]);
+        //Checking if this person have NOT yet voted on this request. If so, the following statement should be true.
+        require(!request.approvals[msg.sender]);
+        //Marking that this person voted on this request:
+        request.approvals[msg.sender] = true;
+        //Increasing the count:
+        request.approvalCount++;
     }
 }
