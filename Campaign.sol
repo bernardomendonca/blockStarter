@@ -1,5 +1,18 @@
 pragma solidity ^0.4.17;
 
+contract CampaignFactory {
+    address[] public deployedCampaigns;
+
+    function createCampaign(uint256 minimum) public {
+        address newCampaign = new Campaign(minimum, msg.sender);
+        deployedCampaigns.push(newCampaign);
+    }
+
+    function getDeployedCampaigns() public view returns(address[]) {
+        returns deployedCampaigns;
+    }
+}
+
 contract Campaign {
     // This is a struct definiton, it does not create and instance!
     struct Request {
@@ -20,15 +33,17 @@ contract Campaign {
     uint256 public minimumContribution;
     // Backers:
     mapping(address => bool) public approvers;
+    // Keeping track of how many backers:
+    uint256 public approversCount;
 
     modifier restricted() {
         require(msg.sender == manager);
         _;
     }
 
-    function Campaign(uint256 minimum) public {
+    function Campaign(uint256 minimum, address creator) public {
         // The manager is whoemver deploys the contract (msg.sender)
-        manager = msg.sender;
+        manager = creator;
         // This function is initialised with the "minimum" argyment.
         // This argument is the minimum plea to back the campaign.
         minimumContribution = minimum;
@@ -38,6 +53,8 @@ contract Campaign {
         require(msg.value > minimumContribution);
 
         approvers[msg.sender] = true;
+        // Increase the approversCount when someone contributes:
+        approversCount++;
     }
 
     function createRequest(
@@ -67,5 +84,15 @@ contract Campaign {
         request.approvals[msg.sender] = true;
         //Increasing the count:
         request.approvalCount++;
+    }
+
+    function finalizeRequest(uint256 index) public restricted {
+        Request storage request = requests[index];
+        // Checking if more than 50% of backers voted YES for the approval:
+        require(request.approvalCount > (approversCount / 2));
+        require(!request.complete);
+
+        request.recipient.transfer(request.value);
+        request.complete = true;
     }
 }
