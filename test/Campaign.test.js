@@ -118,7 +118,7 @@ describe('Campaigns', () => {
          });
 
          // checking the balance of accounts[1] to check if they received the funds
-         let balance = await web3.eth.getBalane(accounts[1]);
+         let balance = await web3.eth.getBalance(accounts[1]);
          // converting balance to ether (from wei)
          balance = web3.utils.fromWei(balance, 'ether');
          // and making it a number (float)
