@@ -19,9 +19,6 @@ fs.ensureDirSync(buildPath);
 //outputing the 2 files into the build folder.
 // PS -> A file can't have a semicolon in front of its name on Windows, therefore the replace
 for (let contract in output) {
-    let name = contract.replace(':', '');
-    fs.outputJsonSync(
-        path.resolve(buildPath, name + '.json'),
-        output[contract]
-    );
+  let name = contract.replace(":", "");
+  fs.outputJsonSync(path.resolve(buildPath, name + ".json"), output[contract]);
 }
