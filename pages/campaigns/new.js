@@ -3,16 +3,20 @@ import { Form, Button, Input, Message } from "semantic-ui-react";
 import Layout from "../../components/Layout";
 import factory from "../../ethereum/factory";
 import web3 from "../../ethereum/web3";
+import { Link, Router } from "../../routes";
 
 class CampaignNew extends Component {
   state = {
     minimumContribution: "",
     errorMessage: "",
+    loading: false,
   };
 
   onSubmit = async (event) => {
     // preventing the browsere to submit the form to our backend
     event.preventDefault();
+
+    this.setState({ loading: true, errorMessage: "" });
 
     // We'll run a try/catch combo to pass any error messages onto the user
     try {
@@ -24,9 +28,13 @@ class CampaignNew extends Component {
         .send({
           from: accounts[0],
         });
+
+      Router.pushRoute("/");
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }
+
+    this.setState({ loading: false });
   };
 
   render() {
@@ -49,7 +57,9 @@ class CampaignNew extends Component {
 
           <Message error header="Oops!" content={this.state.errorMessage} />
 
-          <Button primary>Create new campaign</Button>
+          <Button loading={this.state.loading} primary>
+            Create new campaign
+          </Button>
         </Form>
       </Layout>
     );
