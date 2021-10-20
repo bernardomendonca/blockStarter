@@ -7,12 +7,16 @@ import { Router } from "../routes";
 class ContributeForm extends Component {
   state = {
     value: "",
+    errorMessage: "",
+    loading: false,
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
 
     const campaign = Campaign(this.props.address);
+
+    this.setState({ loading: true, errorMessage: "" });
 
     try {
       const accounts = await web3.eth.getAccounts();
@@ -23,12 +27,16 @@ class ContributeForm extends Component {
 
       // When contributing, the "show" page won't refresh. We'll use Router to refresh the page:
       Router.replaceRoute(`/campaigns/${this.props.address}`);
-    } catch (err) {}
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
+
+    this.setState({ loading: false, value: "" });
   };
 
   render() {
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.onSubmit} error={!!this.state.errorMessage}>
         <Form.Field>
           <label>Amount to Contribute</label>
           <Input
@@ -38,7 +46,10 @@ class ContributeForm extends Component {
             labelPosition="right"
           />
         </Form.Field>
-        <Button primary>Contribute!</Button>
+        <Message error header="Oops!" content={this.state.errorMessage} />
+        <Button primary loading={this.state.loading}>
+          Contribute!
+        </Button>
       </Form>
     );
   }
