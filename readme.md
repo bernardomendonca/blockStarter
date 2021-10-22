@@ -18,7 +18,7 @@ npm install
 ## Running
 
 ```bash
-npm run start
+npm run dev
 ```
 
 ## Built with
