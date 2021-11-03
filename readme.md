@@ -1,15 +1,29 @@
 # BlockStarter
 
 BlockStarter is a crowdsourcing platform built for the decetralized web.
-This project is a rebuild of traditional crowdsourcing platforms, but built with on a decentralised ledger.
+Build as part of Stephen Grider's Ethereum and Solidity developer short course.
 
-# About
+# How does it work?
 
-This project was built as an experiment in order to integrate a DLT (ethereum) with a NodeJS App.
+This is an analogy of KickStarter built on the Ethereum blockchain. Smart Contracts are being used to guarantee the integrity of every transaction.
+Individuals can create campaigns, and receive contributions (with minimum amount stipulated).
+Campaign owners will then be able to request funds to develop the project further.
+Lastly, contributors will vote on the campaign owner's requests in order to make the funds available.
+![BlockStarter_campaignDescription](https://res.cloudinary.com/dxbk4zeyc/image/upload/v1635914157/GitHub%20Readme/BlockStarter1.png)
+![BlockStarter_requestFunds](https://res.cloudinary.com/dxbk4zeyc/image/upload/v1635914157/GitHub%20Readme/BlockStarter2.png)
+
+# The tech
+
+This project was built as an experiment in order to integrate a Decentralised Ledger Techonology (Ethereum) with a NodeJS App.
+Smart Contracts were written in Solidity and compiled with the solc library.
+web3.js was used to grant access to the Ethereum blockchain by using web-based wallets (such as MetaMask).
+More info about the libraries used down there :point_down:
+
+Everything was built using the Rinkeby testnet! If you want to build something like that in the mainnet, make sure to use the correct Infura endpoint.
 
 ## Installation
 
-Use the node package manager [npm](https://pip.pypa.io/en/stable/) to install the dependencies.
+Clone this repo and use the node package manager [npm](https://pip.pypa.io/en/stable/) to install the dependencies.
 
 ```bash
 npm install
@@ -36,3 +50,7 @@ npm run dev
 - [HDWallet Provider](https://www.npmjs.com/package/@truffle/hdwallet-provider) - Wallet-enabled web3 provider
 - [solc](https://www.npmjs.com/package/solc) - Solidity compiler
 - [Infura](https://infura.io/) - High available API's to develop on Ethereum testnet and Mainnet
+
+## Modifications
+
+Go crazy and build yourself something awesome :)
