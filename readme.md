@@ -3,7 +3,7 @@
 BlockStarter is a crowdsourcing platform built for the decetralized web.
 Build as part of Stephen Grider's Ethereum and Solidity developer short course.
 
-# How does it work?
+## How does it work?
 
 This is an analogy of KickStarter built on the Ethereum blockchain. Smart Contracts are being used to guarantee the integrity of every transaction.
 Individuals can create campaigns, and receive contributions (with minimum amount stipulated).
@@ -12,7 +12,7 @@ Lastly, contributors will vote on the campaign owner's requests in order to make
 ![BlockStarter_campaignDescription](https://res.cloudinary.com/dxbk4zeyc/image/upload/v1635914157/GitHub%20Readme/BlockStarter1.png)
 ![BlockStarter_requestFunds](https://res.cloudinary.com/dxbk4zeyc/image/upload/v1635914157/GitHub%20Readme/BlockStarter2.png)
 
-# The tech
+## The tech
 
 This project was built as an experiment in order to integrate a Decentralised Ledger Techonology (Ethereum) with a NodeJS App.
 Smart Contracts were written in Solidity and compiled with the solc library.
